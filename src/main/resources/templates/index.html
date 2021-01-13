@@ -7,6 +7,62 @@
 </head>
 <body>
 <p><span  th:text="${time}"></span></p>
-    <h1>Überschrift</h1>
+
+    <div class="container">
+        <div class="row">
+            <h1>Ausgaben</h1>
+        </div>
+        <div class="row-6">
+            <p>Filter:</p>
+            <form th:filter="@{/}">
+                <div class="btn-group" role="group" aria-label="filter">
+                    <button type="submit" class="btn btn-primary" value="1" th:name="filter">kein Filter</button>
+                    <button type="submit" class="btn btn-primary" value="2" th:name="filter">Datum</button>
+                    <button type="submit" class="btn btn-primary" value="3" th:name="filter">Name</button>
+                    <button type="submit" class="btn btn-primary" value="4" th:name="filter">Betrag</button>
+                    <button type="submit" class="btn btn-primary" value="5" th:name="filter">Schlüsselwort</button>
+                </div>
+            </form>
+
+        </div>
+        <div class="row-6" th:if="${filter}==null">
+            <p>test</p>
+        </div>
+        <div class="row-6" th:if="${filter}==2">
+
+        </div>
+        <div class="row-6">
+
+        </div>
+        <div class="row-6">
+
+        </div>
+        <div class="row-6">
+
+        </div>
+        <div class="row-6"></div>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <td>ID</td>
+                        <td>Datum</td>
+                        <td>Name</td>
+                        <td>Betrag in €</td>
+                        <td>zusätzliche Notiz</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="transaction :${bl}">
+                        <td th:text="${transaction.transactionID}"></td>
+                        <td th:text="${transaction.date}"></td>
+                        <td th:text="${transaction.name}"></td>
+                        <td th:text="${transaction.betragInEuro}"></td>
+                        <td th:text="${transaction.notiz}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
 </body>
 </html>
