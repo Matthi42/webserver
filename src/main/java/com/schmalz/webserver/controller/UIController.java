@@ -29,7 +29,10 @@ public class UIController {
         return "redirect:/";
     }
 
-
+    @GetMapping("/changeExpense")
+    public String changeExpense(@RequestParam(value ="id" ,required =true)Integer id){
+        return "inputForm";
+    }
 
 
 
@@ -45,6 +48,7 @@ public class UIController {
                         Model model,
                         @RequestParam(value = "param1",required = false)String param1,
                         @RequestParam(value = "param2",required = false)String param2){
+
         if(filter!=null){
             switch (filter){
                 case 2:
@@ -74,6 +78,7 @@ public class UIController {
                         model.addAttribute("bl",bl.getTransactions());
             }
         }
+
         model.addAttribute("time", LocalDateTime.now().toString());
 
         if(filter!=null)
