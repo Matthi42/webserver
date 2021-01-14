@@ -18,16 +18,18 @@ public class UIController {
 
 
     @PostMapping("/submitForm")
-    public String submitForm(@ModelAttribute Expense expense,Model model){
+    public String submitForm(@ModelAttribute Expense expense){
         bl.addTransaction(expense);
-        return "index";
+        return "redirect:/";
     }
 
-    @PostMapping("/changeFilter")
-    public String changeFilter(@ModelAttribute Filter filter, Model model){
-
-        return "index";
+    @GetMapping("/deleteExpense")
+    public String deleteExpense(@RequestParam(value ="id" ,required =true)Integer id){
+        bl.deleteTransaction(id);
+        return "redirect:/";
     }
+
+
 
 
 
@@ -39,12 +41,48 @@ public class UIController {
 
 
     @GetMapping("/")
-    public String index(@RequestParam(value="filter" ,required = false)Integer filter,Model model){
+    public String index(@RequestParam(value="filter" ,required = false)Integer filter,
+                        Model model,
+                        @RequestParam(value = "param1",required = false)String param1,
+                        @RequestParam(value = "param2",required = false)String param2){
+        if(filter!=null){
+            switch (filter){
+                case 2:
+                    if(param1!=null) {
+                        model.addAttribute("filter", 2);
+                        model.addAttribute("bl", bl.getForDaterange(param1, param2));
+                    }
+                    break;
+                case 3:
+                    if(param1!=null) {
+                        model.addAttribute("filter", 3);
+                        model.addAttribute("bl",bl.getForName(param1));
+                        }
+                    break;
+                case 4:
+                    if(param1!=null){
+                        model.addAttribute("filter",4);
+                        model.addAttribute("bl",bl.getForAmountRange(Integer.parseInt(param1),Integer.parseInt(param2)));
+                    }
 
+                    break;
+                case 5:
+                    if(param1!=null)
+                    model.addAttribute("bl",bl.getWithKeyWord(param1));
+                    break;
+                    default:
+                        model.addAttribute("bl",bl.getTransactions());
+            }
+        }
         model.addAttribute("time", LocalDateTime.now().toString());
-        //hier muss nach dem übergebenen parameter gefiltert werden
-        model.addAttribute("bl",bl.getTransactions());
-        model.addAttribute(filter);
+
+        if(filter!=null)
+            model.addAttribute("filter",filter);
+        else{
+            model.addAttribute("filter",1);
+            model.addAttribute("bl",bl.getTransactions());
+        }
+
         return "index";
     }
 

@@ -2,6 +2,9 @@ package com.schmalz.webserver.model;
 
 
 
+import org.springframework.format.datetime.DateFormatter;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -11,7 +14,6 @@ public class BudgetList {
     private ArrayList<Transaction> Transactions = new ArrayList<>();
 
     private int IDcounter = 0;
-
 
     public void addTransaction(Transaction transaction) {
         this.Transactions.add(transaction);
@@ -51,6 +53,21 @@ public class BudgetList {
             }
         }
         retur.sort(Comparator.comparing(Transaction::getName));
+        return retur;
+    }
+
+    public ArrayList<Transaction> getForDaterange(String first,String second){
+        LocalDate date1=LocalDate.parse(first);
+        LocalDate date2=LocalDate.parse(second);
+        ArrayList<Transaction> retur=new ArrayList<>();
+        for (Transaction t :
+                Transactions) {
+            if((t.getDate().isBefore(date2)||t.getDate().isEqual(date2))
+                    &&((t.getDate().isAfter(date1))||(t.getDate().isEqual(date1)))){
+                retur.add(t);
+            }
+        }
+        retur.sort(Comparator.comparing(Transaction::getTransactionID));
         return retur;
     }
 
