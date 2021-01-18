@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.spi.LocaleServiceProvider;
 
 @Component
 public class Transaction {
@@ -12,7 +13,7 @@ public class Transaction {
 
     private int transactionID;
     private Expense expense;
-    private LocalDateTime submitTime;
+    //private LocalDateTime submitTime;
 
 
     public Transaction(int betrag, String name, LocalDate date, String notiz, int transactionID){
@@ -22,7 +23,7 @@ public class Transaction {
     public Transaction(Expense expense, int transactionID){
         this.expense=expense;
         this.transactionID=transactionID;
-        this.submitTime=LocalDateTime.now();
+        //this.submitTime=LocalDateTime.now();
     }
 
     public Transaction(){
@@ -46,16 +47,34 @@ public class Transaction {
     public LocalDate getDate(){
         return expense.getDate();
     }
-    public LocalDateTime getSubmitTime(){
-        return submitTime;
-    }
-
+   //public LocalDateTime getSubmitTime(){
+   //    return submitTime;
+   //}
+    public Expense getExpense() {return expense;}
 
     public int getTransactionID() {
         return transactionID;
     }
 
+    public void setTransactionID(int transactionID) {
+        this.transactionID = transactionID;
+    }
 
+    public void setName(String name){
+        this.expense.setName(name);
+    }
+
+    public void setNotiz(String notiz){
+        this.expense.setNotiz(notiz);
+    }
+
+    public void setDate(LocalDate date){
+        this.expense.setDate(date);
+    }
+
+    public void setBetrag(int betrag){
+        this.expense.setBetrag(betrag);
+    }
 
 
     @Override

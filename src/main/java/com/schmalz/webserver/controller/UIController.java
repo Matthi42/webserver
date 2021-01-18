@@ -3,6 +3,7 @@ package com.schmalz.webserver.controller;
 import com.schmalz.webserver.Filter;
 import com.schmalz.webserver.model.BudgetList;
 import com.schmalz.webserver.model.Expense;
+import com.schmalz.webserver.model.Transaction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,17 +24,23 @@ public class UIController {
         return "redirect:/";
     }
 
+    @PostMapping("/submitModifiedForm")
+    public String submitModifiedForm(@ModelAttribute Transaction transaction){
+        //bl.addTransaction(expense);
+        return "redirect:/";
+    }
+
     @GetMapping("/deleteExpense")
-    public String deleteExpense(@RequestParam(value ="id" ,required =true)Integer id){
+    public String deleteExpense(@RequestParam(value ="id")Integer id){
         bl.deleteTransaction(id);
         return "redirect:/";
     }
 
-    @GetMapping("/changeExpense")
-    public String changeExpense(@RequestParam(value ="id" ,required =true)Integer id){
-        return "inputForm";
+    @GetMapping("/modifyExpense")
+    public String modifyExpense(@RequestParam(value ="id")Integer id,Model model){
+        model.addAttribute("transaction",bl.getByID(id));
+        return "modifyForm";
     }
-
 
 
     @GetMapping("/expenseForm")

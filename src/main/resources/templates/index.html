@@ -97,13 +97,12 @@
             <td th:text="${transaction.notiz}"></td>
             <td>
                 <form action="/deleteExpense" method="get">
-
-                    <button class="btn btn-danger float-right" name="id" th:value="${transaction.transactionID}"
+                    <button name="id" class="btn btn-danger float-right" th:value="${transaction.transactionID}"
                             type="submit">Löschen
                     </button>
                 </form>
-                <form action="/changeExpense" method="get">
-                    <button name="id" class="btn btn-info float-right" th:value="${transaction.transactionID}"
+                <form action="/modifyExpense" method="get">
+                    <button name="id" class="btn btn-info float-right"   th:value="${transaction.transactionID}"
                             type="submit">Bearbeiten
                     </button>
                 </form>
