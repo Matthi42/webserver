@@ -1,17 +1,20 @@
 package com.schmalz.webserver.model;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+import javax.persistence.Id;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-
+@Entity(name="Expense")
 public class Expense {
+
+    @Id
+    @GeneratedValue
+    private long id;
     private int betrag;
     private String name;
-
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
     private String notiz;
@@ -40,7 +43,6 @@ public class Expense {
             return "0,0"+betrag;
         else
             return "0,"+ betrag;
-
     }
 
     public void setBetrag(int betrag) {
@@ -71,6 +73,13 @@ public class Expense {
         this.date = date;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     @Override
     public boolean equals(Object t){

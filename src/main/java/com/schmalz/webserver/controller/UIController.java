@@ -3,6 +3,7 @@ package com.schmalz.webserver.controller;
 import com.schmalz.webserver.Filter;
 import com.schmalz.webserver.model.BudgetList;
 import com.schmalz.webserver.model.Expense;
+import com.schmalz.webserver.model.ExpenseList;
 import com.schmalz.webserver.model.Transaction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 
 @Controller
 public class UIController {
+    private ExpenseList daten=new ExpenseList();
     private BudgetList bl=new BudgetList();
 
 
@@ -93,6 +95,7 @@ public class UIController {
         else{
             model.addAttribute("filter",1);
             model.addAttribute("bl",bl.getTransactions());
+            //model.addAttribute("bl",daten.getAll());
         }
 
         return "index";

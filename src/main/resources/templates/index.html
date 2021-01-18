@@ -9,8 +9,10 @@
 <p><span th:text="${time}"></span></p>
 
 <div class="container">
-    <div class="row">
-        <h1>Ausgaben</h1>
+    <div style="padding-left=15px" class="row">
+        <div class="col">
+            <h2 >Ausgaben</h2>
+        </div>
     </div>
     <div class="row">
         <div class="col-6">
@@ -38,54 +40,107 @@
     </div>
 
     <div class="row">
-    <div style="padding:2px" class="col-6" th:if="${filter}==1">
-        <p>kein Filer ausgewählt</p>
+    <div style="padding-top:3px" class="col-6" th:if="${filter}==1">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text" >kein Filer ausgewählt</span>
+            </div>
+        </div>
     </div>
-    <div style="padding:2px" class="col-6" th:if="${filter}==2">
+    <div style="padding-top:2px" class="col-6" th:if="${filter}==2">
         <form>
-            <label for="date1">von</label>
-            <input type="date" id="date1" name="param1" required>
-            <label for="date2">bis</label>
-            <input type="date" id="date2" name="param2" required>
-            <input type="hidden" value="2" name="filter"/>
-            <input type="submit" id="" value="Filtern!">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Start- und End- Datum</span>
+                </div>
+                <input type="date" class="form-control" name="param1" required>
+                <input type="date" class="form-control" name="param2" required>
+                <input type="hidden" value="2" name="filter">
+                <div class="input-group-append">
+                    <input type="submit" class="btn btn-light" value="Filtern!">
+                </div>
+            </div>
+
         </form>
     </div>
-    <div style="padding:2px" class="col-6" th:if="${filter}==3">
+    <div style="padding-top:2px" class="col-6" th:if="${filter}==3">
         <form>
-            <input name="param1" type="text">
-            <input type="submit" value="Filtern!">
-            <input type="hidden" value="3" name="filter">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Name</span>
+                </div>
+                <input type="text" class="form-control" name="param1" required>
+                <input type="hidden" value="3" name="filter">
+                <div class="input-group-append">
+                    <input type="submit" class="btn btn-light" value="Filtern!">
+                </div>
+            </div>
         </form>
     </div>
-    <div style="padding:2px" class="col-6" th:if="${filter}==4">
+    <div style="padding-top:2px" class="col-6" th:if="${filter}==4">
         <form method="get" th:action="@{/}">
-            <label for="num1" >Untergrenze in cent</label>
-            <input id="num1"type="number" name="param1" required min="0" max="100000000">
-            <label for="num2">Obergrenze in cent</label>
-            <input id="num2" type="number" name="param2" required min="0" max="100000000">
-            <input type="hidden" value="4" name="filter"/>
-            <input type="submit" value="Filtern!">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="g">Unter- und Obergrenze in cent</span>
+                </div>
+                <input type="number" class="form-control" name="param1" required min="0" max="100000000">
+                <input type="number" class="form-control" name="param2" required min="0" max="100000000">
+                <input type="hidden" value="4" name="filter">
+                <div class="input-group-append">
+                    <input type="submit" class="btn btn-light" value="Filtern!">
+                </div>
+            </div>
         </form>
     </div>
-    <div style="padding:2px" class="col" th:if="${filter}==5">
+    <div style="padding-top:2px" class="col-6" th:if="${filter}==5">
         <form>
-            <input id="keyword" name="param1" type="text" placeholder="Schlüsselwort in der Notiz">
-            <input type="submit" value="Filtern!">
-            <input type="hidden" value="5" name="filter">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" >Schlüsselwort</span>
+                </div>
+                <input type="text" class="form-control" name="param1" >
+                <input type="hidden" value="5" name="filter">
+                <div class="input-group-append">
+                    <input type="submit" class="btn btn-light" value="Filtern!">
+                </div>
+            </div>
+
         </form>
     </div>
     </div>
     <div class="row"></div>
     <table class="table">
-        <thead class="thead-dark">
+        <thead>
         <tr>
-            <!--<td>ID</td>-->
-            <td>Datum</td>
-            <td>Name</td>
-            <td>Betrag in €</td>
-            <td>zusätzliche Notiz</td>
-            <td></td>
+            <th>
+                <div style="width:117px">
+                    <label>Datum</label>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-light btn-sm">▲</button>
+                        <button type="button" class="btn btn-light btn-sm">▼</button>
+                    </div>
+                </div>
+            </th>
+            <th>
+                <div style="width:110px">
+                    <label>Name</label>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-light btn-sm">▲</button>
+                        <button type="button" class="btn btn-light btn-sm">▼</button>
+                    </div>
+                </div>
+            </th>
+            <th>
+                <div style="width:149px">
+                    <label>Betrag in €</label>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-light btn-sm">▲</button>
+                        <button type="button" class="btn btn-light btn-sm">▼</button>
+                    </div>
+                </div>
+            </th>
+            <th><label>zusätzliche Notiz</label></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -96,21 +151,24 @@
             <td th:text="${transaction.betragInEuro}"></td>
             <td th:text="${transaction.notiz}"></td>
             <td>
+                <div style="width:154px">
                 <form action="/deleteExpense" method="get">
-                    <button name="id" class="btn btn-danger float-right" th:value="${transaction.transactionID}"
+                    <button name="id" class="btn btn-danger btn-sm float-right" th:value="${transaction.transactionID}"
                             type="submit">Löschen
                     </button>
                 </form>
                 <form action="/modifyExpense" method="get">
-                    <button name="id" class="btn btn-info float-right"   th:value="${transaction.transactionID}"
+                    <button name="id" class="btn btn-info btn-sm float-right"   th:value="${transaction.transactionID}"
                             type="submit">Bearbeiten
                     </button>
                 </form>
+                </div>
             </td>
         </tr>
         </tbody>
     </table>
 </div>
+
 
 </div>
 </body>
